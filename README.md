@@ -1,15 +1,6 @@
-# AntiFraud
-
+# HOGRL
 A Financial Fraud Detection Framework.
-
-Source codes implementation of papers:
-- `MCNN`: Credit card fraud detection using convolutional neural networks, published in [ICONIP 2016](https://link.springer.com/chapter/10.1007/978-3-319-46675-0_53). 
-- `STAN`: Spatio-temporal attention-based neural network for credit card fraud detection, published in [AAAI 2020](https://ojs.aaai.org/index.php/AAAI/article/view/5371).
-- `STAGN`: Graph Neural Network for Fraud Detection via Spatial-temporal Attention, published in [TKDE 2020](https://ieeexplore.ieee.org/abstract/document/9204584/)
-- `GTAN`: Semi-supervised Credit Card Fraud Detection via Attribute-driven Graph Representation, published in [AAAI 2023](https://ojs.aaai.org/index.php/AAAI/article/view/26702).
-- `RGTAN`: Enhancing Attribute-driven Fraud Detection with Risk-aware Graph Representation, published in [TKDE 2025](https://ieeexplore.ieee.org/document/10896835)
 - `HOGRL`: Effective High-order Graph Representation Learning for Credit Card Fraud Detection, published in [IJCAI 2024](https://arxiv.org/pdf/2503.01556).
-- `Grad`: Grad: Guided Relation Diffusion Generation for Graph Augmentation in Graph Fraud Detection in [WWW 2025](https://dl.acm.org/doi/abs/10.1145/3696410.3714520).
 
 
 
@@ -21,7 +12,6 @@ Source codes implementation of papers:
 2. Run `python feature_engineering/data_process.py` to pre-process all datasets needed in this repo.
 3. Run `python feature_engineering/get_matrix.py` to generate the adjacency matrix of the high-order transaction graph.Please note that this will require approximately 280GB of storage space. Please be aware that if you intend to run `HOGRL` , you should first execute the `get_matrix.py` script.
 
-> `Grad` is run on the DGL's `Amazon` and `Yelp` dataset.
 
 ### Training & Evalutaion
 <!-- 
@@ -35,35 +25,12 @@ You may change relevant configurations in `config/base_cfg.yaml`. -->
 
 
 
-To test implementations of `MCNN`, `STAN` and `STAGN`, run
-```
-python main.py --method mcnn
-python main.py --method stan
-python main.py --method stagn
-```
-Configuration files can be found in `config/mcnn_cfg.yaml`, `config/stan_cfg.yaml` and `config/stagn_cfg.yaml`, respectively.
-
-
-
-Models in `GTAN` and `RGTAN` can be run via:
-```
-python main.py --method gtan
-python main.py --method rgtan
-```
-For specification of hyperparameters, please refer to `config/gtan_cfg.yaml` and `config/rgtan_cfg.yaml`.
-
-
-
 Model in `HOGRL` can be run via:
 
 ```
 python main.py --method hogrl
 ```
 For specification of hyperparameters, please refer to `config/hogrl_cfg.yaml`.
-
-
-
-To run the `Grad`, please read the [README of Grad](./methods/grad/README.md), including the environments and pipelines.
 
 
 
@@ -96,17 +63,10 @@ The performance of five models tested on three datasets are listed as follows:
 | |YelpChi| | |Amazon| | |S-FFSD| | |
 |:----|:----|:----|:----|:----|:----|:----|:----|:----|:----|
 | |AUC|F1|AP|AUC|F1|AP|AUC|F1|AP|
-|MCNN||- | -| -| -| -|0.7129|0.6861|0.3309|
-|STAN|- |- | -| -| -| -|0.7446|0.6791|0.3395|
-|STAGN|- |- | -| -| -| -|0.7659|0.6852|0.3599|
-|GTAN|0.9241|0.7988|0.7513|0.9630|0.9213|0.8838|0.8286|0.7336|0.6585|
-|RGTAN|0.9498|0.8492|0.8241|0.9750|0.9200|0.8926|0.8461|0.7513|0.6939|
 |HOGRL|0.9808|0.8595|-|0.9800|0.9198|-|-|-|-|
-|Grad|0.9908|-|0.9644|0.9789|-|0.8968|-|-|-|
 
-> `MCNN`, `STAN`, `Grad` and `STAGN` are presently not applicable to YelpChi and Amazon datasets.
 >
-> `HOGRL` and `Grad` are presently not applicable to S-FFSD dataset.
+> `HOGRL` is presently not applicable to S-FFSD dataset.
 
 ## Repo Structure
 The repository is organized as follows:
@@ -131,63 +91,16 @@ torch            1.12.1+cu113
 dgl-cu113        0.8.1
 ```
 
-### Contributors :
-<a href="https://github.com/AI4Risk/antifraud/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AI4Risk/antifraud" />
-</a>
+
 
 ### Citing
 
-If you find *Antifraud* is useful for your research, please consider citing the following papers:
+If you find *HOGRL* is useful for your research, please consider citing the following papers:
     
-    @inproceedings{yang2025grad,
-      title={Grad: Guided relation diffusion generation for graph augmentation in graph fraud detection},
-      author={Yang, Jie and Zhang, Rui and Cheng, Ziyang and Cheng, Dawei and Yang, Guang and Wang, Bo},
-      booktitle={Proceedings of the ACM on Web Conference 2025},
-      pages={5308--5319},
-      year={2025}
-    }
+
     @inproceedings{zou2024effective,
       title={Effective High-order Graph Representation Learning for Credit Card Fraud Detection.},
       author={Zou, Yao and Cheng, Dawei},
       booktitle={International Joint Conference on Artificial Intelligence},
       year={2024}
-    }
-    @ARTICLE{xiang2025enhancing,
-      author={Xiang, Sheng and Zhang, Guibin and Cheng, Dawei and Zhang, Ying},
-      journal={IEEE Transactions on Knowledge and Data Engineering}, 
-      title={Enhancing Attribute-Driven Fraud Detection With Risk-Aware Graph Representation}, 
-      year={2025},
-      pages={1-12},
-      doi={10.1109/TKDE.2025.3543887}
-    }
-    @inproceedings{Xiang2023SemiSupervisedCC,
-        title={Semi-supervised Credit Card Fraud Detection via Attribute-driven Graph Representation},
-        author={Sheng Xiang and Mingzhi Zhu and Dawei Cheng and Enxia Li and Ruihui Zhao and Yi Ouyang and Ling Chen and Yefeng Zheng},
-        booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-        year={2023}
-    }
-    @article{cheng2020graph,
-        title={Graph Neural Network for Fraud Detection via Spatial-temporal Attention},
-        author={Cheng, Dawei and Wang, Xiaoyang and Zhang, Ying and Zhang, Liqing},
-        journal={IEEE Transactions on Knowledge and Data Engineering},
-        year={2020},
-        publisher={IEEE}
-    }
-    @inproceedings{cheng2020spatio,
-        title={Spatio-temporal attention-based neural network for credit card fraud detection},
-        author={Cheng, Dawei and Xiang, Sheng and Shang, Chencheng and Zhang, Yiyi and Yang, Fangzhou and Zhang, Liqing},
-        booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-        volume={34},
-        number={01},
-        pages={362--369},
-        year={2020}
-    }
-    @inproceedings{fu2016credit,
-        title={Credit card fraud detection using convolutional neural networks},
-        author={Fu, Kang and Cheng, Dawei and Tu, Yi and Zhang, Liqing},
-        booktitle={International Conference on Neural Information Processing},
-        pages={483--490},
-        year={2016},
-        organization={Springer}
     }
